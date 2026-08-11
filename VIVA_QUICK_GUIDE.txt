@@ -1,0 +1,42 @@
+SMART DEMAND FORECASTING AND TRUCK ALLOCATION SYSTEM — VIVA QUICK GUIDE
+
+DEMO ACCOUNTS
+Purchasing: purchase@vilvam.com / purchase123
+Logistics: logistics@vilvam.com / logistics123
+Super Admin (technical backup): admin@vilvam.com / admin123
+
+RECOMMENDED VIVA SEQUENCE
+1. Start the system with run_app.bat.
+2. Login as Purchasing Staff.
+3. Dashboard must show Waiting for Sales Dataset before activation.
+4. Open Sales Data Management and upload a valid food sales CSV/Excel file.
+   A safe supplied demo file is: test_datasets/clean_bakery_beverage_dataset.csv
+5. Clean/validate it and click Activate This Dataset for Forecasting.
+6. Return to Dashboard: product, sales quantity and current-stock values must now come from the activated dataset.
+   Optional fast-order demo: Customer Management → Quick Customer Sales Request. Select a customer + dataset product + quantity and send the generated customer message to Logistics.
+7. Logout and login as Logistics Staff. The same active dataset must still be available.
+8. Open Forecasting and explain R², MAE, RMSE, feature importance and the next 7-day forecast.
+9. Open Smart Truck Allocation. Explain forecast quantity × unit weight/volume and live Available truck capacity.
+10. Open Delivery Schedule.
+    - A pending Purchasing Customer Request is selected first automatically. Customer, item, quantity, unit weight and unit volume are received/displayed without retyping.
+    - For manual entry, enter Quantity, Unit Weight (kg) and Unit Volume (m³). For a Purchasing request these values are auto-filled. The system calculates total weight/volume and recommends only an Available truck that satisfies BOTH capacities.
+    - Assign the order: the truck immediately changes Available → Assigned. Truck Management shows the linked Delivery Schedule number and exact Assigned At time.
+    - For the viva timer demo: create/assign a delivery with distance and manager-decided toll, then click Start 1-Minute Demo Trip.
+    - A live stopwatch updates every second while the truck stays On Route. At 0 seconds the delivery automatically becomes Delivered / Waiting Verification, disappears from the active schedule, and shows a "Goods delivered on time!" popup.
+    - Dashboard Active Fuel Usage / Active Toll Cost then use that linked route.
+    - Or use Generate 30-Day Demo Sales Orders for report history; the latest order is intentionally left Waiting Verification.
+11. Open Printable POD to show customer/driver delivery details and signature boxes. Fuel, toll and distance are intentionally excluded from the customer POD.
+12. Open Delivery Verification. Verify the Waiting Verification delivery; only after verification does it become Completed / Verified and the truck returns to Available.
+    - A centered "Goods delivered on time!" popup confirms completion.
+    - The completed record disappears from the active Delivery Schedule list but remains in Reports/history.
+13. Open Reports to show delivery, fuel, toll, utilization, performance and export options.
+
+FUEL / TOLL EXPLANATION
+Fuel litres = route distance × adjusted fuel litres per km.
+Fuel cost = fuel litres × RM2.15/L.
+Actual-delivery toll is entered by the manager because toll depends on route.
+The demo history generator uses a synthetic toll estimate only for demonstration records.
+
+IF SOMETHING LOOKS WRONG BEFORE THE VIVA
+Use Super Admin → Reset Viva Demo, then upload/activate the dataset again.
+Login/logout does NOT clear the shared Purchasing dataset.
