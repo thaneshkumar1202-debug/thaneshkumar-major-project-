@@ -1,0 +1,54 @@
+VILVAM VIVA DEMO UPDATE
+
+1. Shared viva state / clean reset
+- Login no longer clears the shared dataset or operational records. Purchasing data therefore remains available when Logistics signs in from another browser/session.
+- Fixed master records such as users, trucks, customers and stock items are preserved.
+- Super Admin has a "Reset Viva Demo" button for the only manual full restart of temporary data.
+
+2. Missing dataset protection
+- A clear warning is displayed when no active sales dataset exists.
+- Forecasting, Festival Planning and Smart Truck Allocation remain blocked until Purchasing or Super Admin uploads, cleans, validates and activates a dataset.
+- Truck master details remain accessible.
+
+3. Dummy sales order generator
+- Added a 30-day dummy sales order generator to Delivery Schedule and Reports.
+- Products and unit weights are taken only from the currently activated sales dataset.
+- Existing demo delivery history is replaced each time the generator is run.
+
+4. Fuel-cost testing
+- Reports now display fuel litres and fuel cost for Today, Last 7 Days and Current Month.
+- Added a daily fuel-cost line chart and detailed daily table.
+- Fuel values are calculated from route distance, truck fuel consumption, engine factor and load utilisation.
+
+5. Interconnection and KPI correction
+- Added Purchasing Quick Customer Sales Requests. Customer/product/quantity are captured once, a dummy customer message is generated, Logistics is notified, and Delivery Schedule auto-receives the request with dataset weight/volume.
+- Fixed Delivery Schedule insertion so route, fuel and toll values are saved correctly.
+- Delivery Schedule recommendation now checks BOTH calculated order weight and volume against live Available truck capacities; Truck Management shows the linked order and Assigned At timestamp.
+- Delivery workflow status and truck status now update together.
+- Trucks cannot be marked Assigned/Loading/On Route/Arrived/Delivered without a linked active Delivery Schedule.
+- Dashboard includes an On Route Trucks KPI and active fuel/toll values from linked delivery records.
+- Forecast caching is tied to the active dataset fingerprint, and the forecasting engine verifies that its in-memory model matches the requested dataset.
+- Dashboard shows active dataset rows, products, total sales quantity and latest sales date so a new Purchasing upload is immediately visible.
+
+6. Purchasing pre-upload dashboard correction
+- Removed seeded SQLite stock values from the Purchasing Dashboard KPI/table view.
+- Before dataset activation the Purchasing Dashboard now shows only a Waiting for Sales Dataset state.
+- After activation the Purchasing Dashboard calculates its product, sales and current-stock KPIs directly from the active cleaned dataset.
+
+7. Final viva reliability pass
+- Fixed large-fleet allocation performance so impossible/high forecast loads return quickly instead of testing every truck combination.
+- The 30-day demo generator now leaves the latest delivery in Delivered / Waiting Verification state for a real verification demonstration.
+- Delivery Verification now shows a waiting-delivery preview and blocks invalid/double verification.
+- Added a 1-minute viva delivery stopwatch: Start Demo Trip moves the linked truck On Route; after 60 seconds it automatically becomes Delivered / Waiting Verification; management verification then makes it Completed / Verified and releases the truck to Available.
+- When a delivery reaches Delivered, the UI shows a centered "Goods delivered on time!" popup and removes it from the active Delivery Schedule list. It remains in Delivery Verification until approved, then in Reports/history as Completed.
+- Verifying a valid delivery marks it Completed / Verified and releases the linked truck to Available.
+- Reset Viva Demo now removes the active dataset, backup dataset and temporary operational records for a truly clean restart.
+
+Modified files:
+- app.py
+- database.py
+
+Validation completed:
+- Python syntax compilation passed for app.py and database.py.
+- Demo generator produced 47 orders across 30 days in a database test.
+- Daily, weekly and monthly fuel summaries returned successfully.
